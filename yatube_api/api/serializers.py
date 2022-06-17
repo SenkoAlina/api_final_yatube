@@ -42,13 +42,13 @@ class FollowSerializer(serializers.ModelSerializer):
         fields = 'user', 'following'
         model = Follow
 
-        validators = [
+        validators = (
             serializers.UniqueTogetherValidator(
                 queryset=Follow.objects.all(),
                 fields=('user', 'following'),
                 message='Такая подписка уже существует',
-            )
-        ]
+            ),
+        )
 
     def validate(self, data):
         if self.context['request'].user == data['following']:
